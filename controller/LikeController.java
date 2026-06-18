@@ -23,7 +23,7 @@ public class LikeController {
         LikeResponseDto response = likeService.addLike(userId, postId);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.of("like_add_success", response));
+                .body(ApiResponse.of("like_create_success", response));
     }
 
     @DeleteMapping

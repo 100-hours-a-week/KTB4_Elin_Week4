@@ -27,12 +27,14 @@ public class PostController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.of("post_add_success", response));
+                .body(ApiResponse.of("post_create_success", response));
     }
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPosts() {
-        List<PostResponseDto> response = postService.getPosts();
+    @GetMapping("/posts")
+    public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPosts(
+            @RequestHeader(value = "X-USER-ID", required = false) Long userId
+    ) {
+        List<PostResponseDto> response = postService.getPosts(userId);
 
         return ResponseEntity.ok(
                 ApiResponse.of("post_list_success", response)
@@ -46,7 +48,7 @@ public class PostController {
         PostResponseDto response = postService.getPost(postId);
 
         return ResponseEntity.ok(
-                ApiResponse.of("post_details_success", response)
+                ApiResponse.of("post_detail_success", response)
         );
     }
 
@@ -59,7 +61,7 @@ public class PostController {
         PostResponseDto response = postService.updatePost(userId, postId, request);
 
         return ResponseEntity.ok(
-                ApiResponse.of("post_edit_success", response)
+                ApiResponse.of("post_update_success", response)
         );
     }
 

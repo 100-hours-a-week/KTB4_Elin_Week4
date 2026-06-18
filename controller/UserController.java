@@ -44,4 +44,20 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+    @PatchMapping("/users/profile")
+    public ResponseEntity<ApiResponse<UserResponseDto.UpdateProfile>> updateProfile(
+            @RequestHeader(value = "X-USER-ID", required = false) Long userId,
+            @Valid @RequestBody UserRequestDto.UpdateProfile request){
+        UserResponseDto.UpdateProfile response = userService.updateProfile(userId, request);
+
+        return ResponseEntity.ok(ApiResponse.of("profile_update_success", response));
+    }
+
+    @PatchMapping("/users/password")
+    public ResponseEntity<ApiResponse<UserResponseDto.UpdatePassword>> updatePassword(
+            @RequestHeader(value = "X-USER-ID", required = false) Long userId,
+            @Valid @RequestBody UserRequestDto.UpdatePassword request) {
+        UserResponseDto.UpdatePassword response = userService.updatePassword(userId, request);
+        return ResponseEntity.ok(ApiResponse.of("password_update_success", response));
+    }
 }
