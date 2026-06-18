@@ -10,12 +10,14 @@ public class Post {
     private String title;
     private String content;
     private String contentImage;
+    private int viewCount;
 
     public Post(Long userId, String title, String content, String contentImage) {
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.contentImage = contentImage;
+        this.viewCount = 0;
     }
 
     public void setId(Long id) {
@@ -26,5 +28,9 @@ public class Post {
         this.title = title;
         this.content = content;
         this.contentImage = contentImage;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
     }
 }

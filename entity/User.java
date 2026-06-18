@@ -21,15 +21,15 @@ public class User {
         this.id = id;
     }
 
-    public void changeNickname(String nickname) {
-        this.nickname = nickname;
+    public void updateProfile(String nickname, String profileImage) {
+        if (nickname != null) {
+            this.nickname = nickname;
+        }
+        if (profileImage != null) {
+            this.profileImage = profileImage;
+        }
     }
-
-    public void changeProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public void changePassword(String password) {
+    public void updatePassword(String password) {
         this.password = password;
     }
 }
