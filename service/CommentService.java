@@ -86,13 +86,13 @@ public class CommentService {
         Post post = postRepository.findById(postId);
 
         if (post == null) {
-            throw new NotFoundException("comment_delete_not_found");
+            throw new NotFoundException("comment_not_found");
         }
 
         Comment comment = commentRepository.findById(commentId);
 
         if (comment == null || !comment.getPostId().equals(postId)) {
-            throw new NotFoundException("comment_delete_not_found");
+            throw new NotFoundException("comment_not_found");
         }
 
         if (!comment.getUserId().equals(userId)) {

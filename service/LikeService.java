@@ -25,7 +25,7 @@ public class LikeService {
         }
 
         if (likeRepository.existsByPostIdAndUserId(postId, userId)) {
-            throw new ConflictException("already_liked"); // 좋아요 누른 게시글에 또 누를 경우
+            throw new ConflictException("already_liked");
         }
 
         likeRepository.save(new Like(postId, userId));
@@ -43,7 +43,7 @@ public class LikeService {
         }
 
         if (!likeRepository.existsByPostIdAndUserId(postId, userId)) {
-            throw new NotFoundException("like_delete_not_found");
+            throw new NotFoundException("like_not_found");
         }
 
         likeRepository.deleteByPostIdAndUserId(postId, userId);
