@@ -20,6 +20,7 @@ public class UserRequestDto {
         @Size(max = 10)
         private String nickname;
 
+        @NotBlank(message = "프로필 이미지는 필수입니다.")
         private String profileImage;
     }
 
@@ -30,6 +31,22 @@ public class UserRequestDto {
         private String email;
 
         @NotBlank(message = "비밀번호는 필수입니다.")
+        private String password;
+    }
+
+    @Getter
+    public static class UpdateProfile {
+        @NotBlank(message = "닉네임은 필수입니다.")
+        @Size(max = 10)
+        private String nickname;
+
+        private String profileImage;
+    }
+
+    @Getter
+    public static class UpdatePassword {
+        @NotBlank(message = "비밀번호는 필수입니다.")
+        @Size(max = 20)
         private String password;
     }
 }

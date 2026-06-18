@@ -42,4 +42,37 @@ public class UserResponseDto {
             return new Login(user.getId());
         }
     }
+
+    @Getter
+    public static class UpdateProfile {
+        private Long userId;
+        private String nickname;
+        private String profileImage;
+
+        public UpdateProfile(Long userId, String nickname, String profileImage) {
+            this.userId = userId;
+            this.nickname = nickname;
+            this.profileImage = profileImage;
+        }
+
+        public static UpdateProfile from(User user) {
+            return new UpdateProfile(
+                    user.getId(),
+                    user.getNickname(),
+                    user.getProfileImage()
+            );
+        }
+    }
+
+    @Getter
+    public static class UpdatePassword {
+        private Long userId;
+
+        public UpdatePassword(Long userId) {
+            this.userId = userId;
+        }
+        public static UpdatePassword from(User user) {
+            return new UpdatePassword(user.getId());
+        }
+    }
 }
