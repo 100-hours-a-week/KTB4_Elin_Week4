@@ -1,22 +1,34 @@
 package community.api.handler;
 
 import community.api.exception.BusinessException;
-import community.api.exception.NotFoundException;
 import community.api.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(NotFoundException.class) //404
-    public ResponseEntity<ApiResponse<Void>> handleNotFound(
-            NotFoundException exception
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationException(
+            MethodArgumentNotValidException exception
     ) {
-        return ResponseEntity
-                .status(exception.getStatus())
-                .body(ApiResponse.of(exception.getCode(), null));
+        Map<String, String> errors = new LinkedHashMap<>();
+        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+
+        for (FieldError fieldError : fieldErrors) {
+            String field = fieldError.getField();
+            String message = fieldError.getDefaultMessage();
+
+            errors.put(field, message);
+        }
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.of("invalid_request", errors));
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -28,16 +40,8 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.of(exception.getCode(), null));
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class) //400
-    public ResponseEntity<ApiResponse<Void>> handleValidationException(
-            MethodArgumentNotValidException exception
-    ) {
-        return ResponseEntity
-                .badRequest()
-                .body(ApiResponse.of("invalid_request", null));
-    }
 
-    @ExceptionHandler(Exception.class) //500
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleException(
             Exception exception
     ) {
