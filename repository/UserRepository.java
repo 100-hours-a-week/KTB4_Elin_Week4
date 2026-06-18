@@ -33,4 +33,14 @@ public class UserRepository {
     public void deleteById(Long userId) {
         users.remove(userId);
     }
+
+    public boolean existsByEmail(String email) {
+        return users.values().stream()
+                .anyMatch(user -> user.getEmail().equals(email));
+    }
+
+    public boolean existsByNickname(String nickname) {
+        return users.values().stream()
+                .anyMatch(user -> user.getNickname().equals(nickname));
+    }
 }

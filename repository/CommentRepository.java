@@ -3,7 +3,6 @@ package community.api.repository;
 import community.api.entity.Comment;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +31,15 @@ public class CommentRepository {
                 .filter(comment -> comment.getPostId().equals(postId))
                 .toList();
     }
+    public int countByPostId(Long postId) {
+        return findAllByPostId(postId).size();
+    }
 
     public void deleteById(Long commentId) {
         comments.remove(commentId);
     }
+    public void deleteByPostId(Long postId) {
+        comments.values().removeIf(comment -> comment.getPostId().equals(postId));
+    }
+
 }

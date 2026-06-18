@@ -33,4 +33,5 @@ public class PostRepository {
     public void deleteById(Long postId) {
         posts.remove(postId);
     }
+
 }

@@ -35,4 +35,7 @@ public class LikeRepository {
                 .filter(like -> like.getPostId().equals(postId))
                 .count();
     }
+    public void deleteByPostId(Long postId) {
+        likes.removeIf(like -> like.getPostId().equals(postId));
+    }
 }
