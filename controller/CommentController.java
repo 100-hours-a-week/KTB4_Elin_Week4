@@ -28,7 +28,7 @@ public class CommentController {
         CommentResponseDto response = commentService.createComment(userId, postId, request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.of("comment_add_success", response));
+                .body(ApiResponse.of("comment_create_success", response));
     }
 
     @GetMapping
@@ -57,7 +57,7 @@ public class CommentController {
         );
 
         return ResponseEntity.ok(
-                ApiResponse.of("comment_edit_success", response)
+                ApiResponse.of("comment_update_success", response)
         );
     }
 
