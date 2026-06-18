@@ -10,7 +10,6 @@ public class BusinessException extends RuntimeException {
     private final HttpStatus status;
 
     public BusinessException(String code, HttpStatus status) {
-        super(code);
         this.code = code;
         this.status = status;
     }
